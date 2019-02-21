@@ -21,7 +21,7 @@ view: flights_risk_team {
     view_label: "Risk Team"
     group_label: "Risk Score Building Blocks"
     type: average
-    sql: ${dep_delay} ;;
+    sql: ${flights.dep_delay} ;;
     value_format_name: decimal_1
   }
 
@@ -30,7 +30,7 @@ view: flights_risk_team {
     view_label: "Risk Team"
     description: "Take average delay across flights as a percent of their total flight length"
     type: number
-    sql: 1.0 * ${average_delay_length} / ${average_flight_length} ;;
+    sql: 1.0 * ${average_delay_length} / ${flights.average_flight_length} ;;
     value_format_name: percent_2
     drill_fields: [drill*]
     link: {
@@ -57,7 +57,7 @@ view: flights_risk_team {
     group_label: "Risk Score Building Blocks"
     view_label: "Risk Team"
     type: number
-    sql: 1.0 * ${count_flights_above_2_horus} / nullif(${flight_count},0) ;;
+    sql: 1.0 * ${count_flights_above_2_horus} / nullif(${flights.flight_count},0) ;;
     value_format_name: percent_2
     drill_fields: [drill*]
     link: {
