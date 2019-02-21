@@ -6,29 +6,6 @@ view: flights_risk_team {
   required_access_grants: [only_advanced_users]
 
   #########################
-  #### Security
-  #########################
-
-  dimension: pilot_ssn {
-    type: string
-    sql: cast(round(rand() * 10000, 0) as string) ;;
-    view_label: "Risk Team"
-    hidden: yes
-  }
-
-  dimension: pilot_ssn_hashed {
-    type: number
-    view_label: "Risk Team"
-    description: "Only users with sufficient permissions will see this data"
-    sql:
-        CASE
-          WHEN '{{_user_attributes["can_see_sensitive_data"]}}' = 'yes'
-                THEN ${pilot_ssn}
-                ELSE TO_BASE64(SHA1(${pilot_ssn}))
-          END ;;
-  }
-
-  #########################
   #### Scoring Airports
   #########################
 

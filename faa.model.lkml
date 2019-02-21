@@ -30,33 +30,19 @@ explore: flights {
 
 
 
-
-
-
-
-
-
-
+  join: summary_airport {
+    view_label: "Flights"
+    relationship: many_to_one
+    sql_on: ${flights.origin} = ${summary_airport.origin} ;;
+  }
 
   ## Security Parameter
   access_filter: {
     field: carriers.nickname
     user_attribute: allowed_airlines
   }
+
 }
-
-
-
-
-
-
-
-
-
-
-### Caching Logic
-
-persist_with: once_weekly
 
 ### Permission Set
 
@@ -74,6 +60,22 @@ access_grant: only_advanced_users {
   user_attribute: user_type
   allowed_values: ["Advanced"]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Caching Logic
+
+persist_with: once_weekly
 
 ### PDT Timeframes
 
@@ -96,5 +98,11 @@ datagroup: once_yearly {
   max_cache_age: "9000 hours"
   sql_trigger: SELECT extract(year from current_date()) ;;
 }
+
+
+
+
+
+
 
 label: "FAA"

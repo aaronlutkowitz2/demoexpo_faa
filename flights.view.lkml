@@ -54,22 +54,6 @@ view: flights {
     sql: ${TABLE}.arr_time ;;
   }
 
-  dimension: flight_num {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.flight_num ;;
-  }
-
-  dimension: flight_num_secure {
-    type: string
-    sql:
-      CASE
-      WHEN '{{_user_attributes["can_see_sensitive_data"]}}' = 'yes'
-      THEN ${flight_num}
-      ELSE TO_BASE64(SHA1(${flight_num}))
-      END ;;
-  }
-
   dimension: origin {
     type: string
     sql: ${TABLE}.origin ;;
@@ -112,10 +96,17 @@ view: flights {
     drill_fields: [drill*]
   }
 
+  measure: percent_flights_delayed_clean {
+    type: number
+    sql: 1.0 * ${count_delayed_flights} / nullif(${flight_count},0) ;;
+    value_format_name: percent_2
+    drill_fields: [drill*]
+  }
+
   measure: percent_flights_delayed {
     type: number
     description: "Count of Delayed Flights out of Total Flights"
-    sql: 1.0 * ${count_delayed_flights} / nullif(${flight_count},0) ;;
+    sql: ${percent_flights_delayed_clean} ;;
     html: {{ rendered_value }} = {{ count_delayed_flights._rendered_value }} Delays / {{ flight_count._rendered_value }} Total ;;
     value_format_name: percent_2
     link: {
@@ -221,7 +212,9 @@ view: flights {
     ]
   }
 
+  #####################
   ## Mergers
+  #####################
 
   dimension: updated_carrier {
     required_access_grants: [only_regular_advanced_users]
@@ -236,4 +229,42 @@ view: flights {
         END ;;
     drill_fields: [origin, destination]
   }
+
+  #####################
+  ## Column-Level Security
+  #####################
+
+  dimension: flight_num {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.flight_num ;;
+  }
+
+  dimension: flight_num_secure {
+    type: string
+    sql:
+      CASE
+      WHEN '{{_user_attributes["can_see_sensitive_data"]}}' = 'yes'
+      THEN ${flight_num}
+      ELSE TO_BASE64(SHA1(${flight_num}))
+      END ;;
+  }
+
+  dimension: pilot_ssn {
+    hidden: yes
+    type: string
+    sql: cast(round(rand() * 10000, 0) as string) ;;
+  }
+
+  dimension: pilot_ssn_hashed {
+    type: number
+    description: "Only users with sufficient permissions will see this data"
+    sql:
+        CASE
+          WHEN '{{_user_attributes["can_see_sensitive_data"]}}' = 'yes'
+                THEN ${pilot_ssn}
+                ELSE TO_BASE64(SHA1(${pilot_ssn}))
+          END ;;
+  }
+
 }
