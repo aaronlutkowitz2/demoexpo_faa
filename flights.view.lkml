@@ -73,6 +73,43 @@ view: flights {
   }
 
   #####################
+  ## Flight Length
+  #####################
+
+  dimension_group: flight_length {
+    type: duration
+    intervals: [minute]
+    required_access_grants: [only_regular_advanced_users]
+    sql_start: ${dep_raw} ;;
+    sql_end: ${arr_raw} ;;
+    description: "Minutes between arrival and departure time (excludes taxi-time)"
+  }
+
+  dimension: flight_length_tier {
+    required_access_grants: [only_regular_advanced_users]
+    label: "Flight Length Tier (Minutes)"
+    type: tier
+    sql: ${minutes_flight_length} ;;
+    tiers: [60,120,180]
+    style: integer
+    drill_fields: [minutes_flight_length]
+  }
+
+  measure: average_flight_length {
+    required_access_grants: [only_regular_advanced_users]
+    label: "Average Flight Length (Minutes)"
+    type: average
+    sql: ${minutes_flight_length} ;;
+    drill_fields: [drill*]
+    value_format_name: decimal_1
+  }
+
+  measure: flight_count {
+    type: count
+    drill_fields: [drill*]
+  }
+
+  #####################
   ## % Delays
   #####################
 
@@ -166,41 +203,6 @@ view: flights {
     sql: ${route_distance} ;;
     drill_fields: [drill*]
     value_format_name: decimal_1
-  }
-
-  #####################
-  ## Flight Length
-  #####################
-
-  dimension: flight_length {
-    required_access_grants: [only_regular_advanced_users]
-    type: number
-    sql: datetime_diff(cast(${arr_raw} as datetime), cast(${dep_raw} as datetime), minute) ;;
-    description: "Minutes between arrival and departure time (excludes taxi-time)"
-  }
-
-  dimension: flight_length_tier {
-    required_access_grants: [only_regular_advanced_users]
-    label: "Flight Length Tier (Minutes)"
-    type: tier
-    sql: ${flight_length} ;;
-    tiers: [60,120,180]
-    style: integer
-    drill_fields: [flight_length]
-  }
-
-  measure: average_flight_length {
-    required_access_grants: [only_regular_advanced_users]
-    label: "Average Flight Length (Minutes)"
-    type: average
-    sql: ${flight_length} ;;
-    drill_fields: [drill*]
-    value_format_name: decimal_1
-  }
-
-  measure: flight_count {
-    type: count
-    drill_fields: [drill*]
   }
 
   set: drill {

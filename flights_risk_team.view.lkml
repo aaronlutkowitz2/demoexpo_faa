@@ -47,7 +47,7 @@ view: flights_risk_team {
     view_label: "Risk Team"
     type: count
     filters: {
-      field: flight_length
+      field: minutes_flight_length
       value: ">120"
     }
     drill_fields: [drill*]
