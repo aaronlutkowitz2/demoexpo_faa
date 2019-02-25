@@ -18,9 +18,22 @@ explore: flights_risk_team {
       ;;
   }
 
+
+
+
+
+
+
+
   join: flights {
     fields: []
     relationship: one_to_one
     sql_on: ${flights.id} = ${flights_risk_team.id} ;;
+  }
+
+  ## Security Parameter
+  access_filter: {
+    field: flights_risk_team.carrier
+    user_attribute: allowed_airlines
   }
 }

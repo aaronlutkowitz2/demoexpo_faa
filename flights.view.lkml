@@ -18,6 +18,12 @@ view: flights {
     sql: ${TABLE}.tail_num ;;
   }
 
+  dimension: flight_num {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.flight_num ;;
+  }
+
   dimension: carrier {
     type: string
     sql: ${TABLE}.carrier ;;
@@ -235,22 +241,6 @@ view: flights {
   #####################
   ## Column-Level Security
   #####################
-
-  dimension: flight_num {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.flight_num ;;
-  }
-
-  dimension: flight_num_secure {
-    type: string
-    sql:
-      CASE
-      WHEN '{{_user_attributes["can_see_sensitive_data"]}}' = 'yes'
-      THEN ${flight_num}
-      ELSE TO_BASE64(SHA1(${flight_num}))
-      END ;;
-  }
 
   dimension: pilot_ssn {
     hidden: yes

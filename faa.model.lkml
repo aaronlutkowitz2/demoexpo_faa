@@ -38,7 +38,7 @@ explore: flights {
 
   ## Security Parameter
   access_filter: {
-    field: carriers.nickname
+    field: flights.carrier
     user_attribute: allowed_airlines
   }
 
