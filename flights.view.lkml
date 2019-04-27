@@ -36,8 +36,13 @@ view: flights {
       raw,
       time,
       hour_of_day,
+      day_of_month,
+      day_of_week,
       date,
       month,
+      month_name,
+      month_num,
+      week_of_year,
       year
     ]
     sql: ${TABLE}.dep_time ;;
@@ -53,8 +58,14 @@ view: flights {
     timeframes: [
       raw,
       time,
+      hour_of_day,
+      day_of_month,
+      day_of_week,
       date,
       month,
+      month_name,
+      month_num,
+      week_of_year,
       year
     ]
     sql: ${TABLE}.arr_time ;;
