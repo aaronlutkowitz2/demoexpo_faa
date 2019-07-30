@@ -44,14 +44,14 @@ explore: flights {
     user_attribute: allowed_airlines
   }
 
-  ## Weather Block
-  join: by_state_by_date {
-    relationship: many_to_one
-    sql_on:
-        ${origin.state} = ${by_state_by_date.state}
-    AND ${flights.arr_date} = ${by_state_by_date.weather_date}
-    ;;
-  }
+#   ## Weather Block
+#   join: by_state_by_date {
+#     relationship: many_to_one
+#     sql_on:
+#         ${origin.state} = ${by_state_by_date.state}
+#     AND ${flights.arr_date} = ${by_state_by_date.weather_date}
+#     ;;
+#   }
 
 }
 
