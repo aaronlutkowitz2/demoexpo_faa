@@ -45,8 +45,12 @@ explore: flights {
   }
 
   ## Weather Block
-  join: by_zip_by_date {
-    # relationship:
+  join: by_state_by_date {
+    relationship: many_to_one
+    sql_on:
+        ${origin.state} = ${by_state_by_date.state}
+    AND ${flights.arr_date} = ${by_state_by_date.weather_date}
+    ;;
   }
 
 }
