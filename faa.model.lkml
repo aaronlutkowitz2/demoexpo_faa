@@ -46,6 +46,7 @@ explore: flights {
 
 #   ## Weather Block
 #   join: by_state_by_date {
+#     view_label: "Weather"
 #     relationship: many_to_one
 #     sql_on:
 #         ${origin.state} = ${by_state_by_date.state}
