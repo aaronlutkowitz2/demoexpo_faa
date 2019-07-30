@@ -1,7 +1,8 @@
 connection: "lookerdata"
 
 include: "*.view.lkml"         # include all views in this project
-include: "//weather/*.view"
+# include: "//weather/*.view"
+include: "//weather/*.view.lkml"
 # include: "*.dashboard.lookml"  # include all dashboards in this project
 
 ### Model
@@ -42,6 +43,9 @@ explore: flights {
     field: carrier
     user_attribute: allowed_airlines
   }
+
+  ## Weather Block
+  # join: by_zip_by_date {}
 
 }
 
