@@ -26,7 +26,7 @@ explore: flights_risk_team {
 
 
   join: flights {
-    fields: []
+    # fields: []
     relationship: one_to_one
     sql_on: ${flights.id} = ${flights_risk_team.id} ;;
   }

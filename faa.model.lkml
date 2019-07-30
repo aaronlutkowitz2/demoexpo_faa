@@ -1,6 +1,7 @@
 connection: "lookerdata"
 
 include: "*.view.lkml"         # include all views in this project
+include: "//weather/*.view"
 # include: "*.dashboard.lookml"  # include all dashboards in this project
 
 ### Model
