@@ -221,8 +221,13 @@ view: flights {
     type: count
     drill_fields: [drill*]
     link: {
-      label: "Custom Drill"
-      url: "/explore/faa/flights?fields=flights.origin,flights.flight_count&sorts=flights.origin"
+      label: "By State"
+      url: "/explore/{{_model._name}}/{{_explore._name}}?fields={{_field._name}},origin.state&sorts=origin.state{% if origin.state._in_query %}&f[origin.state]={{ origin.state._value | url_encode }}{% else %}&limit=100{% endif %}&vis_config={\"type\":\"table\",\"series_types\":{}}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
+    link: {
+      label: "By City"
+      url: "/explore/{{_model._name}}/{{_explore._name}}?fields={{_field._name}},origin.city&sorts=origin.city{% if origin.state._in_query %}&f[origin.state]={{ origin.state._value | url_encode }}{% else %}&limit=100{% endif %}&vis_config={\"type\":\"table\",\"series_types\":{}}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
   }
