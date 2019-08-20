@@ -220,6 +220,11 @@ view: flights {
   measure: flight_count {
     type: count
     drill_fields: [drill*]
+    link: {
+      label: "Custom Drill"
+      url: "/explore/faa/flights?fields=flights.origin,flights.flight_count&sorts=flights.origin"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
   }
 
   set: drill {
