@@ -112,6 +112,14 @@ datagroup: once_yearly {
 }
 
 
+test: test_there_are_flights {
+  explore_source: flights {
+    column: flight_count {}
+  }
+  assert: there_is_data {
+    expression: ${flights.flight_count} > 0 ;;
+  }
+}
 
 
 
