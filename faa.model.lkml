@@ -112,12 +112,16 @@ datagroup: once_yearly {
 }
 
 
-test: test_there_are_flights {
+test: test_take_off_before_landing {
   explore_source: flights {
     column: flight_count {}
+    filters: {
+      field: flights.minutes_flight_length
+      value: "<0"
+    }
   }
-  assert: there_is_data {
-    expression: ${flights.flight_count} > 0 ;;
+  assert: no_flights_take_off_after_landing {
+    expression: ${flights.flight_count} = 0 ;;
   }
 }
 
