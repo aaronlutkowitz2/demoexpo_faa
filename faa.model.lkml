@@ -11,7 +11,7 @@ explore: flights {
   view_name: flights
   view_label: "Flights"
 
-  sql_always_where: ${minutes_flight_length} > 0 and ${minutes_flight_length} < 2000 ;;
+  sql_always_where: ${minutes_flight_length} > 0 and ${minutes_flight_length} < 2000  ;;
 
   join: origin {
     from: airport
