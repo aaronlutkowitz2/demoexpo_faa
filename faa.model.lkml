@@ -7,6 +7,11 @@ include: "//weather/*.explore.lkml"
 
 ### Model
 
+# explore: test {
+#   extends: [bq_gsod]
+#   from: bq_gsod
+# }
+
 explore: flights {
   view_name: flights
   view_label: "Flights"

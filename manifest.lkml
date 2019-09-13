@@ -6,3 +6,7 @@ project_name: "faa"
 local_dependency: {
   project: "weather"
 }
+
+constant: test {
+  value: "Test1"
+}
