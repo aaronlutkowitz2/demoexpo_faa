@@ -1,3 +1,14 @@
+explore: flights_dca {}
+view: flights_dca {
+  derived_table: {
+    datagroup_trigger: once_daily
+    sql:
+    SElECT * FROM faa.flights WHERE origin = 'DCA' AND destination = 'DFW'
+    ;;
+  }
+  dimension: origin {}
+}
+
 view: flights {
   sql_table_name: faa.flights ;;
 
@@ -170,7 +181,7 @@ view: flights {
     required_access_grants: [only_regular_advanced_users]
     label: "Distance Tiers (Miles)"
     type: tier
-    tiers: [250, 500, 1000, 1500]
+    tiers: [250, 500, 750, 1000, 1500]
     style: integer
     sql: ${route_distance} ;;
     drill_fields: [route_distance]
