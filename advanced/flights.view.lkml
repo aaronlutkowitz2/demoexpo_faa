@@ -1,14 +1,3 @@
-explore: flights_dca {}
-view: flights_dca {
-  derived_table: {
-    datagroup_trigger: once_daily
-    sql:
-    SElECT * FROM faa.flights WHERE origin = 'DCA' AND destination = 'DFW'
-    ;;
-  }
-  dimension: origin {}
-}
-
 view: flights {
   sql_table_name: faa.flights ;;
 
