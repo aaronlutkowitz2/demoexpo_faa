@@ -232,6 +232,11 @@ view: flights {
     }
   }
 
+  measure: count {
+    type: count
+    hidden: yes
+  }
+
   set: drill {
     fields: [
       carriers.nickname,

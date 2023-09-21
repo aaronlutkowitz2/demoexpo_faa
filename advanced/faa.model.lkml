@@ -1,8 +1,8 @@
 connection: "lookerdata"
 
 include: "/advanced/*.view.lkml"         # include all views in this project
-include: "//weather/*.view.lkml"
-include: "//weather/*.explore.lkml"
+# include: "//weather/*.view.lkml"
+# include: "//weather/*.explore.lkml"
 # include: "*.dashboard.lookml"  # include all dashboards in this project
 
 ### Model
@@ -37,11 +37,11 @@ explore: flights {
 
 
 
-  join: summary_airport {
-    view_label: "Flights"
-    relationship: many_to_one
-    sql_on: ${flights.origin} = ${summary_airport.origin} ;;
-  }
+  # join: summary_airport {
+  #   view_label: "Flights"
+  #   relationship: many_to_one
+  #   sql_on: ${flights.origin} = ${summary_airport.origin} ;;
+  # }
 
   ## Security Parameter
   access_filter: {
@@ -49,46 +49,46 @@ explore: flights {
     user_attribute: allowed_airlines
   }
 
-  query: _preview {
-    dimensions: [dep_time,flight_num,carrier,origin,destination,dep_delay]
-  }
+  # query: _preview {
+  #   dimensions: [dep_time,flight_num,carrier,origin,destination,dep_delay]
+  # }
 
-  query: carrier_by_flights_count {
-    description: "Which Carriers are flying?"
-    group_label: "Carriers"
-    dimensions: [carriers.nickname]
-    measures: [flight_count]
-    sort: {field:flight_count  desc:yes}
-  }
-  query: destinations_by_filghts_count_top_5 {
-    description: "Where are the planes flying?"
-    group_label: "Airports"
-    dimensions: [destination]
-    measures: [flight_count]
-    sort: {field:flight_count  desc:yes}
-    limit: 5
-  }
-  query: timeliness_by_flights_count {
-    description: "How often are the flights ontime?"
-    group_label: "Timeliness"
-    dimensions: [is_flight_delayed]
-    measures: [flight_count]
-    sort: {field:is_flight_delayed  desc:no}
-  }
-  query: distance_by_flights_count {
-    description: "How many of flights are short, medium or long?"
-    group_label: "Routes"
-    dimensions: [distance_tiers]
-    measures: [flight_count]
-    sort: {field:distance_tiers  desc:no}
-  }
-  query: flight_month_by_flights_count {
-    description: "Show flights over time"
-    group_label: "Time"
-    dimensions: [dep_month]
-    measures: [flight_count]
-    sort: {field:dep_month  desc:no}
-  }
+  # query: carrier_by_flights_count {
+  #   description: "Which Carriers are flying?"
+  #   group_label: "Carriers"
+  #   dimensions: [carriers.nickname]
+  #   measures: [flight_count]
+  #   sort: {field:flight_count  desc:yes}
+  # }
+  # query: destinations_by_filghts_count_top_5 {
+  #   description: "Where are the planes flying?"
+  #   group_label: "Airports"
+  #   dimensions: [destination]
+  #   measures: [flight_count]
+  #   sort: {field:flight_count  desc:yes}
+  #   limit: 5
+  # }
+  # query: timeliness_by_flights_count {
+  #   description: "How often are the flights ontime?"
+  #   group_label: "Timeliness"
+  #   dimensions: [is_flight_delayed]
+  #   measures: [flight_count]
+  #   sort: {field:is_flight_delayed  desc:no}
+  # }
+  # query: distance_by_flights_count {
+  #   description: "How many of flights are short, medium or long?"
+  #   group_label: "Routes"
+  #   dimensions: [distance_tiers]
+  #   measures: [flight_count]
+  #   sort: {field:distance_tiers  desc:no}
+  # }
+  # query: flight_month_by_flights_count {
+  #   description: "Show flights over time"
+  #   group_label: "Time"
+  #   dimensions: [dep_month]
+  #   measures: [flight_count]
+  #   sort: {field:dep_month  desc:no}
+  # }
 
 #   ## Weather Block
 #   join: by_state_by_date {
